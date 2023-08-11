@@ -57,11 +57,20 @@ xps_xsg_blks    = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', '
 %     set_param(xps_blks{n}, fields{1}, val)
 % end 
 
+% mcb: backwards compatible between SG and MC
+gwi_name = 'Xilinx Gateway In Block';
+gwo_name = 'Xilinx Gateway Out Block';
+vivado_ver = strsplit(getenv('XILINX_VIVADO'), '/');
+vivado_ver = vivado_ver{end};
+if strcmp(vivado_ver, '2023.1')
+    gwi_name = 'Gateway In Block';
+    gwo_name = 'Gateway Out Block';
+end
 
 sysgen_blk      = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'SearchDepth', 1,   'Tag', 'genX');
 casper_blks     = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'RegExp', 'on',      'Tag', '^casper:');
-gateway_ins     = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all',     'MaskType', 'Xilinx Gateway In Block');
-gateway_outs    = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all',     'MaskType', 'Xilinx Gateway Out Block');
+gateway_ins     = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all',     'MaskType', gwi_name);
+gateway_outs    = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all',     'MaskType', gwo_name);
 disregards      = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all',                    'Tag', 'discardX');
 
 % parents of disregard blocks -- i.e., blocks we should ignore
@@ -94,7 +103,7 @@ else
 end
 
 % comb for gateway in blocks that aren't part of a yellow block
-gateways_blk = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'masktype', 'Xilinx Gateway In Block');
+gateways_blk = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'masktype', 'Gateway In Block');
 for i = 1:length(gateways_blk)
     found_xps_tag = 0;
     parent = get_param(gateways_blk(i), 'parent');
