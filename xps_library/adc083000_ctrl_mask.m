@@ -23,11 +23,12 @@
 
 cursys = gcb;
 
+gwo_name = 'Gateway Out Block';
 gateway_outs = find_system(cursys, ...
 	'searchdepth', 1, ...
 	'FollowLinks', 'on', ...
 	'lookundermasks', 'all', ...
-	'masktype','Xilinx Gateway Out Block');
+	'masktype', gwo_name);
 
 for i =1:length(gateway_outs)
     gw = gateway_outs{i};

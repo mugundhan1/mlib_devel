@@ -31,7 +31,8 @@ set_param([cursys,'/convert_tx_data'],'n_bits', num2str(64/demux));
 set_param([cursys,'/convert_tx_outofband'],'n_bits', num2str(8/demux));
 
 % Rename ports
-gateway_ins = find_system(cursys,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype','Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(cursys,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype', gwi_name);
 for i = 1:length(gateway_ins)
     gw = gateway_ins{i};
     if regexp(get_param(gw,'Name'),'(rx_data)$')
@@ -62,8 +63,8 @@ for i = 1:length(gateway_ins)
     end
 end
 
-
-gateway_outs = find_system(cursys,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype','Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs = find_system(cursys,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype', gwo_name);
 for i = 1:length(gateway_outs)
     gw = gateway_outs{i};
     if regexp(get_param(gw,'Name'),'(rx_get)$')

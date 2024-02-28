@@ -68,7 +68,8 @@ port_names = {...
     'sync'};
 
 % find out all the blocks in the design
-gateway_ins     = find_system(blk, 'FollowLinks', 'on', 'LookUnderMasks', 'all',     'MaskType', 'Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(blk, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'MaskType', gwi_name);
 
 %we only need to change the 'Name' here.
 for i = 1 : length(gateway_ins)

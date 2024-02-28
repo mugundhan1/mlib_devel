@@ -22,7 +22,8 @@
 
 myname = gcb;
 
-gateway_outs =find_system(gcb,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype','Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs =find_system(gcb,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype',gwo_name);
 for i =1:length(gateway_outs)
     gw = gateway_outs{i};
     if regexp(get_param(gw,'Name'),'(user_data_a)$')

@@ -84,7 +84,8 @@ end
 clean_blocks(myname);
 
 % relabel the gateway ins...
-gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype','Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype', gwi_name);
 for n = 1:length(gateway_ins)
     gw = gateway_ins{n};
     if regexp(get_param(gw,'Name'),'(user_data\d+)$')
@@ -99,7 +100,8 @@ for n = 1:length(gateway_ins)
 end 
 
 % relabel the gateway outs...
-gateway_outs = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype','Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype', gwo_name);
 for n = 1:length(gateway_outs)
     gw = gateway_outs{n};
     if regexp(get_param(gw,'Name'),'(user_rst)$')

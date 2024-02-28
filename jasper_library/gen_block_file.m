@@ -57,15 +57,8 @@ xps_xsg_blks    = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', '
 %     set_param(xps_blks{n}, fields{1}, val)
 % end 
 
-% mcb: backwards compatible between SG and MC
-gwi_name = 'Xilinx Gateway In Block';
-gwo_name = 'Xilinx Gateway Out Block';
-vivado_ver = strsplit(getenv('XILINX_VIVADO'), '/');
-vivado_ver = vivado_ver{end};
-if strcmp(vivado_ver, '2023.1')
-    gwi_name = 'Gateway In Block';
-    gwo_name = 'Gateway Out Block';
-end
+gwi_name = 'Gateway In Block';
+gwo_name = 'Gateway Out Block';
 
 sysgen_blk      = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'SearchDepth', 1,   'Tag', 'genX');
 casper_blks     = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'RegExp', 'on',      'Tag', '^casper:');
@@ -103,7 +96,7 @@ else
 end
 
 % comb for gateway in blocks that aren't part of a yellow block
-gateways_blk = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'masktype', 'Gateway In Block');
+gateways_blk = find_system(this_sys, 'FollowLinks', 'on', 'LookUnderMasks', 'all', 'masktype', gwi_name);
 for i = 1:length(gateways_blk)
     found_xps_tag = 0;
     parent = get_param(gateways_blk(i), 'parent');

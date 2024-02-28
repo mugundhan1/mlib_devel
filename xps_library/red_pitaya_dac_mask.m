@@ -7,7 +7,8 @@ myname = blk;
 adc_blk = find_system(myname);
 bits_str=convertCharsToStrings(get_param(adc_blk{1},'bits'));
 
-gateway_outs = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', gwo_name);
 for i =1:length(gateway_outs)
     gw = gateway_outs{i};
     if regexp(get_param(gw, 'Name'), '(dac_reset_in)$')
@@ -27,7 +28,8 @@ for i =1:length(gateway_outs)
     end
 end
 
-casts = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Type Converter Block');
+convert_name = 'Type Converter Block';
+casts = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', convert_name);
 for i =1:length(casts)
     cst = casts{i};
     if regexp(get_param(cst, 'Name'), '(convert_dac0_data_i_in)$')

@@ -61,8 +61,7 @@ jasper_python = [getenv('MLIB_DEVEL_PATH') '/jasper_library/exec_flow.py'];
 
 disp('Launching jasper flow middleware');
 % rv = system([jasper_python ' -m' modelpath ' -c' builddir ' --skipyb --skipfe --skipbe']);
-rv = system(['python ' jasper_python ' -m' modelpath ' -c' builddir '']);
-%rv = system(['python ' '-E ' jasper_python ' -m' modelpath ' -c' builddir '']);
+rv = system(['python ' '-E ' jasper_python ' -m' modelpath ' -c' builddir '']);
 
 if rv ~= 0
     fprintf('ERROR: see %s/jasper.log for details\n', builddir);
@@ -88,13 +87,10 @@ end
 build_cmd = '';
 if strcmp(getenv('JASPER_BACKEND'), 'vivado')
     build_cmd = [python_path ' ' jasper_python ' -m ' modelpath ' --middleware --backend --software'];
-    %build_cmd = [python_path ' -E ' jasper_python ' -m ' modelpath ' --middleware --backend --software'];
 elseif strcmp(getenv('JASPER_BACKEND'), 'vitis')
     build_cmd = [python_path ' ' jasper_python ' -m ' modelpath ' --middleware --backend --software --vitis'];
-    %build_cmd = [python_path ' -E ' jasper_python ' -m ' modelpath ' --middleware --backend --software --vitis'];
 elseif strcmp(getenv('JASPER_BACKEND'), 'ise')
     build_cmd = [python_path ' ' jasper_python ' -m ' modelpath ' --middleware --backend --software --be ise'];
-    %build_cmd = [python_path ' -E ' jasper_python ' -m ' modelpath ' --middleware --backend --software --be ise'];
 end
 
 disp('************************************');

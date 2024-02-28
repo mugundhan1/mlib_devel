@@ -60,7 +60,8 @@ switch hw_sys
     	set_param([myname,'/dram_sim/memory/cast_narrow3'], 'n_bits', '576');
 end
 
-gateway_outs = find_system(myname,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype','Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs = find_system(myname,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype', gwo_name);
 for i =1:length(gateway_outs)
     gw = gateway_outs{i};
     if regexp(get_param(gw,'Name'),'(Mem_Rst)$')
@@ -92,7 +93,8 @@ for i =1:length(gateway_outs)
     end
 end
 
-gateway_ins = find_system(myname,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype','Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(myname,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype', gwi_name);
 for i =1:length(gateway_ins)
     gw = gateway_ins{i};
     if regexp(get_param(gw,'Name'),'(Mem_Cmd_Ack)$')

@@ -26,8 +26,9 @@ cursys = blk;
 set_param(cursys, 'LinkStatus', 'inactive');
 
 % rename gateways
+gwi_name = 'Gateway In Block';
 gateway_ins = find_system(cursys, 'searchdepth', 1, 'FollowLinks', ...
-    'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Gateway In Block');
+    'on', 'lookundermasks', 'all', 'masktype', gwi_name);
 for ctr = 1 : length(gateway_ins)
     gw = gateway_ins{ctr};
     if regexp(get_param(gw, 'Name'), '_frame_out$')
@@ -49,7 +50,7 @@ for ctr = 1 : length(gateway_ins)
 end
 gateway_outs = find_system(cursys, 'searchdepth', 1, ...
     'FollowLinks', 'on', 'lookundermasks', 'all', ...
-    'masktype', 'Xilinx Gateway Out Block');
+    'masktype', gwo_name);
 for ctr = 1 : length(gateway_outs)
     gw = gateway_outs{ctr};
     if regexp(get_param(gw, 'Name'), '_rst$')
