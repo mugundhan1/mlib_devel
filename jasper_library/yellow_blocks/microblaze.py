@@ -234,7 +234,7 @@ class microblaze_vu_plus(microblaze):
         inst.add_port('%s_t' % name, '%s_t' % name)
     
     def modify_top(self,top):
-        inst = top.get_instance(entity=self.bd_inst_name, name='%_inst' % self.bd_inst_name, comment='%s: Microblaze Control and Monitoring subsystem' % self.fullname)
+        inst = top.get_instance(entity=self.bd_inst_name, name='%s_inst' % self.bd_inst_name, comment='%s: Microblaze Control and Monitoring subsystem' % self.fullname)
         inst.add_port('Clk', 'wb_clk_i')
         inst.add_port('Reset', 'wb_rst_i')
         inst.add_port('dcm_locked', '1\'b1')
