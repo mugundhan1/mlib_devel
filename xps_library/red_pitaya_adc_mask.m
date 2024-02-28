@@ -8,7 +8,8 @@ adc_blk = find_system(myname);
 bit_num=str2double(get_param(adc_blk{1},'bits'));
 binarypoint=0; 
 
-gateway_outs = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Gateway Out Block');
+gwo_name = 'Gateway Out Block';
+gateway_outs = find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', gwo_name);
 for i =1:length(gateway_outs)
     gw = gateway_outs{i};
     if regexp(get_param(gw, 'Name'), '(adc_reset_in)$')
@@ -19,7 +20,8 @@ for i =1:length(gateway_outs)
     end
 end
 
-gateway_ins =find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins =find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', gwi_name);
 for i =1:length(gateway_ins)
     gw = gateway_ins{i};
     if regexp(get_param(gw, 'Name'), '(adc_data_val_out)$')

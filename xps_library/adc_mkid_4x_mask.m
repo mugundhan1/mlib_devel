@@ -23,7 +23,8 @@
 myname = gcb; 
 %set_param(myname, 'LinkStatus', 'inactive');
 
-gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype','Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on','lookundermasks','all','masktype',gwi_name);
 for i =1:length(gateway_ins)
     gw = gateway_ins{i};
     if regexp(get_param(gw,'Name'),'(user_data_i0)$')

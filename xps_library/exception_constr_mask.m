@@ -22,7 +22,8 @@
 
 cursys = gcb;
 
-delay_blks = find_system(cursys, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Delay Block');
+delay_name = 'Delay Block';
+delay_blks = find_system(cursys, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', delay_name);
 
 for i = 1:length(delay_blks)
     delay_blk = delay_blks{i};

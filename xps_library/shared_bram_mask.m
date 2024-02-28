@@ -32,6 +32,9 @@ data_bin_pt = eval_param(c_sys, 'data_bin_pt');
 addr_width  = eval_param(c_sys, 'addr_width');
 init_vals   = eval_param(c_sys, 'init_vals');
 
+gwi_name = 'Gateway In Block';
+gwo_name = 'Gateway Out Block';
+
 % set up address manipulation blocks
 
 try
@@ -47,11 +50,11 @@ set_param([c_sys, '/convert_din1'], 'n_bits', num2str(data_width), 'bin_pt', num
 % set up gateways
 
 gateway_ins = find_system(c_sys, 'searchdepth', 1, 'FollowLinks', 'on', ...
-    'lookundermasks', 'all', 'masktype', 'Xilinx Gateway In Block');
+    'lookundermasks', 'all', 'masktype', gwi_name);
 set_param(gateway_ins{1}, 'n_bits', num2str(data_width), ...
     'arith_type', 'Unsigned', 'bin_pt', num2str(data_bin_pt), 'Name', clear_name([c_sys,'_data_out']));
 gateway_outs =find_system(c_sys, 'searchdepth', 1, 'FollowLinks', 'on', ...
-    'lookundermasks', 'all', 'masktype', 'Xilinx Gateway Out Block');
+    'lookundermasks', 'all', 'masktype', gwo_name);
 for ctr =1:length(gateway_outs)
     gw = gateway_outs{ctr};
     if regexp(get_param(gw, 'Name'), '_addr$')

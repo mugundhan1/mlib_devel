@@ -31,7 +31,8 @@ myname = blk;
 %    end
 %end
 
-gateway_ins =find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', 'Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins =find_system(myname, 'searchdepth', 1, 'FollowLinks', 'on', 'lookundermasks', 'all', 'masktype', gwi_name);
 for i =1:length(gateway_ins)
     gw = gateway_ins{i};
     if regexp(get_param(gw, 'Name'), '(adc0_data_val_out)$')

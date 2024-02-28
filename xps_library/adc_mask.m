@@ -244,7 +244,8 @@ for k=0:3
     end
 end
 
-gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype','Xilinx Gateway In Block');
+gwi_name = 'Gateway In Block';
+gateway_ins = find_system(gcb,'searchdepth',1,'FollowLinks', 'on', 'lookundermasks','all','masktype',gwi_name);
 for n = 1:length(gateway_ins)
     gw = gateway_ins{n};
     if regexp(get_param(gw,'Name'),'(user_data[iq]\d+)$')
