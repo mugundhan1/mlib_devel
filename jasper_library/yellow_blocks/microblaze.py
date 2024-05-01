@@ -18,6 +18,7 @@ class microblaze(YellowBlock):
     def initialize(self):
         self.include_spi_ports = False
         if self.platform.name in ['snap2']:
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
             if self.platform.version == 1:
                 self.memfile= 'executable_no_xadc.mem'
                 self.blkdiagram = 'microblaze_wb_no_xadc.tcl'
@@ -28,28 +29,34 @@ class microblaze(YellowBlock):
             self.memfile = 'executable_us_plus.mem'
             self.blkdiagram = 'microblaze_wb_us_plus.tcl'
             self.include_spi_ports = False
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
         elif self.platform.name in ['vcu128']:
             self.memfile = 'executable_us_plus.mem'
             #self.blkdiagram = 'microblaze_wb_us_plus_hbm.tcl'
             #this is the new tcl, in which we added two axi-gpio and axi-spi modules for adc4x16g initalization
             self.blkdiagram = 'microblaze_wb_us_plus_hbm_vu_plus.tcl'
             self.include_spi_ports = False
+            self.bd_inst_name = 'adc4x16g_core'
         elif self.platform.name == 'casia_k7':
             self.memfile= 'executable_casia_k7.mem'
            # self.memfile = 'executable.mem'
             self.blkdiagram = 'microblaze_wb_casia_k7.tcl'
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
         elif self.platform.name == 'casia_k7_21cma':
             self.memfile= 'executable_casia_k7.mem'
            # self.memfile = 'executable.mem'
             self.blkdiagram = 'microblaze_wb_casia_k7.tcl'
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
         elif self.platform.conf.get('family', None) == 'ultrascaleplus':
             self.memfile = 'executable_us_plus.mem'
             self.blkdiagram = 'microblaze_wb_us_plus_hbm.tcl'
             self.include_spi_ports = False
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
         else:
             self.memfile = 'executable.mem'
             self.blkdiagram = 'microblaze_wb.tcl'
             self.include_spi_ports = True
+            self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
 
         #self.add_source('microblaze_wb/%s' % self.elf)
         self.ips = [{'path':'%s/axi_wb_bridge/ip_repo' % env['HDL_ROOT'],
@@ -59,7 +66,6 @@ class microblaze(YellowBlock):
                      'version':'1.0',
                     }]
 
-        self.bd_inst_name = '{:s}_bd'.format(self.platform.conf['name'])
 
         #self.requires = ['cpu_ethernet']
 
@@ -234,7 +240,8 @@ class microblaze_vu_plus(microblaze):
         inst.add_port('%s_t' % name, '%s_t' % name)
     
     def modify_top(self,top):
-        inst = top.get_instance(entity=self.bd_inst_name, name='%s_inst' % self.bd_inst_name, comment='%s: Microblaze Control and Monitoring subsystem' % self.fullname)
+        inst = top.get_instance(entity='vcu128_mb_bd', name='vcu128_mb_bd_inst', comment='%s: Microblaze Control and Monitoring subsystem' % self.fullname)
+        #inst = top.get_instance(entity=self.bd_inst_name, name='%s_inst' % self.bd_inst_name, comment='%s: Microblaze Control and Monitoring subsystem' % self.fullname)
         inst.add_port('Clk', 'wb_clk_i')
         inst.add_port('Reset', 'wb_rst_i')
         inst.add_port('dcm_locked', '1\'b1')
@@ -301,5 +308,6 @@ class microblaze_vu_plus(microblaze):
         # overwrite top.bit with version that includes microblaze code
         # ignorestderr because this command fails even though it appears to work.
         # Flags an awk error: see https://forums.xilinx.com/t5/Installation-and-Licensing/Vivado-2016-4-on-Ubuntu-16-04-LTS-quot-awk-symbol-lookup-error/m-p/747165
-        tcl_cmds['post_bitgen'] += ['exec -ignorestderr updatemem -bit ./myproj.runs/impl_1/top.bit -meminfo ./myproj.runs/impl_1/top.mmi -data ../executable_core_info.mem  -proc %s/microblaze_0 -out ./myproj.runs/impl_1/top.bit -force' % self.bd_inst_name]
+        #tcl_cmds['post_bitgen'] += ['exec -ignorestderr updatemem -bit ./myproj.runs/impl_1/top.bit -meminfo ./myproj.runs/impl_1/top.mmi -data ../executable_core_info.mem  -proc %s/microblaze_0 -out ./myproj.runs/impl_1/top.bit -force' % self.bd_inst_name]
+        tcl_cmds['post_bitgen'] += ['exec -ignorestderr updatemem -bit ./myproj.runs/impl_1/top.bit -meminfo ./myproj.runs/impl_1/top.mmi -data ../executable_core_info.mem  -proc vcu128_mb_bd_inst/microblaze_0 -out ../vcu128_mb_top.bit -force']
         return tcl_cmds

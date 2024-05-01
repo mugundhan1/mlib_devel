@@ -61,6 +61,10 @@ pins:
       - BF27
       - BG27
       - BG28
+  gpio:
+    iostd: LVCMOS18
+    loc:
+      - E19
   gbe_phy_mdio:
     iostd: LVCMOS18
     loc: BG23
