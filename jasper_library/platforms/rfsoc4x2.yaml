@@ -184,13 +184,6 @@ pins:
       - AV10 # PB1
       - AW9  # PB2
       - AT12 # PB3
-  pps_comp:
-    iostd: LVCMOS18
-    loc: AJ13
-  pps_trig:
-    iostd: LVCMOS18
-    loc: AH13
-
 
   pmod:
     iostd: LVCMOS18
