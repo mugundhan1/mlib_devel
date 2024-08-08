@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2021.1
+set scripts_vivado_version 2023.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -123,18 +123,18 @@ set bCheckIPsPassed 1
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
+peralex.com:user:axi_slave_wishbone_classic_master:1.0\
+xilinx.com:ip:proc_sys_reset:5.0\
+xilinx.com:ip:xadc_wiz:3.3\
+xilinx.com:ip:xlconcat:2.1\
 xilinx.com:ip:axi_hwicap:3.0\
 xilinx.com:ip:axi_quad_spi:3.2\
-peralex.com:user:axi_slave_wishbone_classic_master:1.0\
 xilinx.com:ip:axi_timebase_wdt:3.0\
 xilinx.com:ip:axi_timer:2.0\
 xilinx.com:ip:axi_uartlite:2.0\
 xilinx.com:ip:mdm:3.2\
 xilinx.com:ip:microblaze:11.0\
 xilinx.com:ip:axi_intc:4.1\
-xilinx.com:ip:proc_sys_reset:5.0\
-xilinx.com:ip:xadc_wiz:3.3\
-xilinx.com:ip:xlconcat:2.1\
 xilinx.com:ip:lmb_bram_if_cntlr:4.0\
 xilinx.com:ip:lmb_v10:3.0\
 xilinx.com:ip:blk_mem_gen:8.4\
@@ -213,34 +213,33 @@ proc create_hier_cell_microblaze_0_local_memory { parentCell nameHier } {
 
   # Create instance: dlmb_bram_if_cntlr, and set properties
   set dlmb_bram_if_cntlr [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 dlmb_bram_if_cntlr ]
-  set_property -dict [ list \
-   CONFIG.C_ECC {0} \
- ] $dlmb_bram_if_cntlr
+  set_property CONFIG.C_ECC {0} $dlmb_bram_if_cntlr
+
 
   # Create instance: dlmb_v10, and set properties
   set dlmb_v10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_v10:3.0 dlmb_v10 ]
 
   # Create instance: ilmb_bram_if_cntlr, and set properties
   set ilmb_bram_if_cntlr [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 ilmb_bram_if_cntlr ]
-  set_property -dict [ list \
-   CONFIG.C_ECC {0} \
- ] $ilmb_bram_if_cntlr
+  set_property CONFIG.C_ECC {0} $ilmb_bram_if_cntlr
+
 
   # Create instance: ilmb_v10, and set properties
   set ilmb_v10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_v10:3.0 ilmb_v10 ]
 
   # Create instance: lmb_bram, and set properties
   set lmb_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 lmb_bram ]
-  set_property -dict [ list \
-   CONFIG.EN_SAFETY_CKT {false} \
-   CONFIG.Enable_B {Use_ENB_Pin} \
-   CONFIG.Memory_Type {True_Dual_Port_RAM} \
-   CONFIG.Port_B_Clock {100} \
-   CONFIG.Port_B_Enable_Rate {100} \
-   CONFIG.Port_B_Write_Rate {50} \
-   CONFIG.Use_RSTB_Pin {true} \
-   CONFIG.use_bram_block {BRAM_Controller} \
- ] $lmb_bram
+  set_property -dict [list \
+    CONFIG.EN_SAFETY_CKT {false} \
+    CONFIG.Enable_B {Use_ENB_Pin} \
+    CONFIG.Memory_Type {True_Dual_Port_RAM} \
+    CONFIG.Port_B_Clock {100} \
+    CONFIG.Port_B_Enable_Rate {100} \
+    CONFIG.Port_B_Write_Rate {50} \
+    CONFIG.Use_RSTB_Pin {true} \
+    CONFIG.use_bram_block {BRAM_Controller} \
+  ] $lmb_bram
+
 
   # Create interface connections
   connect_bd_intf_net -intf_net microblaze_0_dlmb [get_bd_intf_pins DLMB] [get_bd_intf_pins dlmb_v10/LMB_M]
@@ -315,92 +314,93 @@ proc create_root_design { parentCell } {
   set dcm_locked [ create_bd_port -dir I dcm_locked ]
   set ext_intr [ create_bd_port -dir I -type intr ext_intr ]
 
-  # Create instance: axi_hwicap_0, and set properties
-  set axi_hwicap_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_hwicap:3.0 axi_hwicap_0 ]
-  set_property -dict [ list \
-   CONFIG.C_FAMILY {virtex7} \
-   CONFIG.C_ICAP_EXTERNAL {0} \
-   CONFIG.C_INCLUDE_STARTUP {0} \
-   CONFIG.C_MODE {0} \
-   CONFIG.C_OPERATION {1} \
- ] $axi_hwicap_0
-
-  # Create instance: axi_quad_spi_0, and set properties
-  set axi_quad_spi_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 axi_quad_spi_0 ]
-  set_property -dict [ list \
-   CONFIG.C_SCK_RATIO {2} \
-   CONFIG.C_SPI_MEMORY {2} \
-   CONFIG.C_SPI_MODE {2} \
- ] $axi_quad_spi_0
-
   # Create instance: axi_slave_wishbone_classic_master_0, and set properties
   set axi_slave_wishbone_classic_master_0 [ create_bd_cell -type ip -vlnv peralex.com:user:axi_slave_wishbone_classic_master:1.0 axi_slave_wishbone_classic_master_0 ]
-
-  # Create instance: axi_timebase_wdt_0, and set properties
-  set axi_timebase_wdt_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timebase_wdt:3.0 axi_timebase_wdt_0 ]
-  set_property -dict [ list \
-   CONFIG.C_WDT_INTERVAL {29} \
- ] $axi_timebase_wdt_0
-
-  # Create instance: axi_timer_0, and set properties
-  set axi_timer_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_0 ]
-
-  # Create instance: axi_uartlite_0, and set properties
-  set axi_uartlite_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_uartlite:2.0 axi_uartlite_0 ]
-  set_property -dict [ list \
-   CONFIG.C_BAUDRATE {115200} \
- ] $axi_uartlite_0
-
-  # Create instance: mdm_1, and set properties
-  set mdm_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mdm:3.2 mdm_1 ]
-  set_property -dict [ list \
-   CONFIG.C_USE_UART {0} \
- ] $mdm_1
-
-  # Create instance: microblaze_0, and set properties
-  set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:11.0 microblaze_0 ]
-  set_property -dict [ list \
-   CONFIG.C_DEBUG_ENABLED {1} \
-   CONFIG.C_D_AXI {1} \
-   CONFIG.C_D_LMB {1} \
-   CONFIG.C_ICACHE_BASEADDR {0x0000000000000000} \
-   CONFIG.C_ICACHE_HIGHADDR {0x000000003FFFFFFF} \
-   CONFIG.C_I_LMB {1} \
- ] $microblaze_0
-
-  # Create instance: microblaze_0_axi_intc, and set properties
-  set microblaze_0_axi_intc [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 microblaze_0_axi_intc ]
-  set_property -dict [ list \
-   CONFIG.C_HAS_FAST {1} \
-   CONFIG.C_PROCESSOR_CLK_FREQ_MHZ {100} \
-   CONFIG.C_S_AXI_ACLK_FREQ_MHZ {100} \
- ] $microblaze_0_axi_intc
-
-  # Create instance: microblaze_0_axi_periph, and set properties
-  set microblaze_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 microblaze_0_axi_periph ]
-  set_property -dict [ list \
-   CONFIG.NUM_MI {8} \
-   CONFIG.SYNCHRONIZATION_STAGES {2} \
- ] $microblaze_0_axi_periph
 
   # Create instance: microblaze_0_local_memory
   create_hier_cell_microblaze_0_local_memory [current_bd_instance .] microblaze_0_local_memory
 
   # Create instance: rst_Clk_100M, and set properties
   set rst_Clk_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_Clk_100M ]
-  set_property -dict [ list \
-   CONFIG.C_AUX_RESET_HIGH {1} \
-   CONFIG.C_AUX_RST_WIDTH {1} \
- ] $rst_Clk_100M
+  set_property -dict [list \
+    CONFIG.C_AUX_RESET_HIGH {1} \
+    CONFIG.C_AUX_RST_WIDTH {1} \
+  ] $rst_Clk_100M
+
 
   # Create instance: xadc_wiz_0, and set properties
   set xadc_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xadc_wiz:3.3 xadc_wiz_0 ]
 
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
-  set_property -dict [ list \
-   CONFIG.NUM_PORTS {6} \
- ] $xlconcat_0
+  set_property CONFIG.NUM_PORTS {6} $xlconcat_0
+
+
+  # Create instance: axi_hwicap_0, and set properties
+  set axi_hwicap_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_hwicap:3.0 axi_hwicap_0 ]
+  set_property -dict [list \
+    CONFIG.C_FAMILY {virtex7} \
+    CONFIG.C_ICAP_EXTERNAL {0} \
+    CONFIG.C_INCLUDE_STARTUP {0} \
+    CONFIG.C_MODE {0} \
+    CONFIG.C_OPERATION {1} \
+  ] $axi_hwicap_0
+
+
+  # Create instance: axi_quad_spi_0, and set properties
+  set axi_quad_spi_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 axi_quad_spi_0 ]
+  set_property -dict [list \
+    CONFIG.C_SPI_MEMORY {2} \
+    CONFIG.C_SPI_MODE {2} \
+  ] $axi_quad_spi_0
+
+
+  # Create instance: axi_timebase_wdt_0, and set properties
+  set axi_timebase_wdt_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timebase_wdt:3.0 axi_timebase_wdt_0 ]
+  set_property CONFIG.C_WDT_INTERVAL {29} $axi_timebase_wdt_0
+
+
+  # Create instance: axi_timer_0, and set properties
+  set axi_timer_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_timer:2.0 axi_timer_0 ]
+
+  # Create instance: axi_uartlite_0, and set properties
+  set axi_uartlite_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_uartlite:2.0 axi_uartlite_0 ]
+  set_property CONFIG.C_BAUDRATE {115200} $axi_uartlite_0
+
+
+  # Create instance: mdm_1, and set properties
+  set mdm_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mdm:3.2 mdm_1 ]
+  set_property CONFIG.C_USE_UART {0} $mdm_1
+
+
+  # Create instance: microblaze_0, and set properties
+  set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:11.0 microblaze_0 ]
+  set_property -dict [list \
+    CONFIG.C_ADDR_TAG_BITS {17} \
+    CONFIG.C_DCACHE_ADDR_TAG {17} \
+    CONFIG.C_DEBUG_ENABLED {1} \
+    CONFIG.C_D_AXI {1} \
+    CONFIG.C_D_LMB {1} \
+    CONFIG.C_I_LMB {1} \
+  ] $microblaze_0
+
+
+  # Create instance: microblaze_0_axi_intc, and set properties
+  set microblaze_0_axi_intc [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 microblaze_0_axi_intc ]
+  set_property -dict [list \
+    CONFIG.C_HAS_FAST {1} \
+    CONFIG.C_PROCESSOR_CLK_FREQ_MHZ {100} \
+    CONFIG.C_S_AXI_ACLK_FREQ_MHZ {100} \
+  ] $microblaze_0_axi_intc
+
+
+  # Create instance: microblaze_0_axi_periph, and set properties
+  set microblaze_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 microblaze_0_axi_periph ]
+  set_property -dict [list \
+    CONFIG.NUM_MI {8} \
+    CONFIG.SYNCHRONIZATION_STAGES {2} \
+  ] $microblaze_0_axi_periph
+
 
   # Create interface connections
   connect_bd_intf_net -intf_net axi_quad_spi_0_SPI_0 [get_bd_intf_ports spi_rtl] [get_bd_intf_pins axi_quad_spi_0/SPI_0]
@@ -424,28 +424,28 @@ proc create_root_design { parentCell } {
   connect_bd_net -net DAT_I_1 [get_bd_ports DAT_I] [get_bd_pins axi_slave_wishbone_classic_master_0/DAT_I]
   connect_bd_net -net Reset_1 [get_bd_ports Reset] [get_bd_pins rst_Clk_100M/ext_reset_in]
   connect_bd_net -net axi_hwicap_0_ip2intc_irpt [get_bd_pins axi_hwicap_0/ip2intc_irpt] [get_bd_pins xlconcat_0/In4]
-  connect_bd_net -net axi_quad_spi_0_eos [get_bd_pins axi_hwicap_0/eos_in] [get_bd_pins axi_quad_spi_0/eos]
+  connect_bd_net -net axi_quad_spi_0_eos [get_bd_pins axi_quad_spi_0/eos] [get_bd_pins axi_hwicap_0/eos_in]
   connect_bd_net -net axi_quad_spi_0_ip2intc_irpt [get_bd_pins axi_quad_spi_0/ip2intc_irpt] [get_bd_pins xlconcat_0/In2]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_ADR_O [get_bd_ports ADR_O] [get_bd_pins axi_slave_wishbone_classic_master_0/ADR_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_CYC_O [get_bd_ports CYC_O] [get_bd_pins axi_slave_wishbone_classic_master_0/CYC_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_DAT_O [get_bd_ports DAT_O] [get_bd_pins axi_slave_wishbone_classic_master_0/DAT_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_RST_O [get_bd_ports RST_O] [get_bd_pins axi_slave_wishbone_classic_master_0/RST_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_SEL_O [get_bd_ports SEL_O] [get_bd_pins axi_slave_wishbone_classic_master_0/SEL_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_STB_O [get_bd_ports STB_O] [get_bd_pins axi_slave_wishbone_classic_master_0/STB_O]
-  connect_bd_net -net axi_slave_wishbone_classic_master_0_WE_O [get_bd_ports WE_O] [get_bd_pins axi_slave_wishbone_classic_master_0/WE_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_ADR_O [get_bd_pins axi_slave_wishbone_classic_master_0/ADR_O] [get_bd_ports ADR_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_CYC_O [get_bd_pins axi_slave_wishbone_classic_master_0/CYC_O] [get_bd_ports CYC_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_DAT_O [get_bd_pins axi_slave_wishbone_classic_master_0/DAT_O] [get_bd_ports DAT_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_RST_O [get_bd_pins axi_slave_wishbone_classic_master_0/RST_O] [get_bd_ports RST_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_SEL_O [get_bd_pins axi_slave_wishbone_classic_master_0/SEL_O] [get_bd_ports SEL_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_STB_O [get_bd_pins axi_slave_wishbone_classic_master_0/STB_O] [get_bd_ports STB_O]
+  connect_bd_net -net axi_slave_wishbone_classic_master_0_WE_O [get_bd_pins axi_slave_wishbone_classic_master_0/WE_O] [get_bd_ports WE_O]
   connect_bd_net -net axi_timebase_wdt_0_wdt_reset [get_bd_pins axi_timebase_wdt_0/wdt_reset] [get_bd_pins rst_Clk_100M/aux_reset_in]
   connect_bd_net -net axi_timer_0_interrupt [get_bd_pins axi_timer_0/interrupt] [get_bd_pins xlconcat_0/In1]
   connect_bd_net -net axi_uartlite_0_interrupt [get_bd_pins axi_uartlite_0/interrupt] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net dcm_locked_1 [get_bd_ports dcm_locked] [get_bd_pins rst_Clk_100M/dcm_locked]
   connect_bd_net -net ext_intr_1 [get_bd_ports ext_intr] [get_bd_pins xlconcat_0/In5]
   connect_bd_net -net mdm_1_debug_sys_rst [get_bd_pins mdm_1/Debug_SYS_Rst] [get_bd_pins rst_Clk_100M/mb_debug_sys_rst]
-  connect_bd_net -net microblaze_0_Clk [get_bd_ports Clk] [get_bd_pins axi_hwicap_0/icap_clk] [get_bd_pins axi_hwicap_0/s_axi_aclk] [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins axi_slave_wishbone_classic_master_0/S_AXI_ACLK] [get_bd_pins axi_timebase_wdt_0/s_axi_aclk] [get_bd_pins axi_timer_0/s_axi_aclk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_intc/processor_clk] [get_bd_pins microblaze_0_axi_intc/s_axi_aclk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_periph/M02_ACLK] [get_bd_pins microblaze_0_axi_periph/M03_ACLK] [get_bd_pins microblaze_0_axi_periph/M04_ACLK] [get_bd_pins microblaze_0_axi_periph/M05_ACLK] [get_bd_pins microblaze_0_axi_periph/M06_ACLK] [get_bd_pins microblaze_0_axi_periph/M07_ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins rst_Clk_100M/slowest_sync_clk] [get_bd_pins xadc_wiz_0/s_axi_aclk]
-  connect_bd_net -net rst_Clk_100M_bus_struct_reset [get_bd_pins microblaze_0_local_memory/LMB_Rst] [get_bd_pins rst_Clk_100M/bus_struct_reset]
-  connect_bd_net -net rst_Clk_100M_interconnect_aresetn [get_bd_pins microblaze_0_axi_periph/ARESETN] [get_bd_pins rst_Clk_100M/interconnect_aresetn]
-  connect_bd_net -net rst_Clk_100M_mb_reset [get_bd_pins microblaze_0/Reset] [get_bd_pins microblaze_0_axi_intc/processor_rst] [get_bd_pins rst_Clk_100M/mb_reset]
-  connect_bd_net -net rst_Clk_100M_peripheral_aresetn [get_bd_pins axi_hwicap_0/s_axi_aresetn] [get_bd_pins axi_quad_spi_0/s_axi_aresetn] [get_bd_pins axi_slave_wishbone_classic_master_0/S_AXI_ARESETN] [get_bd_pins axi_timebase_wdt_0/s_axi_aresetn] [get_bd_pins axi_timer_0/s_axi_aresetn] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins microblaze_0_axi_intc/s_axi_aresetn] [get_bd_pins microblaze_0_axi_periph/M00_ARESETN] [get_bd_pins microblaze_0_axi_periph/M01_ARESETN] [get_bd_pins microblaze_0_axi_periph/M02_ARESETN] [get_bd_pins microblaze_0_axi_periph/M03_ARESETN] [get_bd_pins microblaze_0_axi_periph/M04_ARESETN] [get_bd_pins microblaze_0_axi_periph/M05_ARESETN] [get_bd_pins microblaze_0_axi_periph/M06_ARESETN] [get_bd_pins microblaze_0_axi_periph/M07_ARESETN] [get_bd_pins microblaze_0_axi_periph/S00_ARESETN] [get_bd_pins rst_Clk_100M/peripheral_aresetn] [get_bd_pins xadc_wiz_0/s_axi_aresetn]
+  connect_bd_net -net microblaze_0_Clk [get_bd_ports Clk] [get_bd_pins axi_slave_wishbone_classic_master_0/S_AXI_ACLK] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins rst_Clk_100M/slowest_sync_clk] [get_bd_pins xadc_wiz_0/s_axi_aclk] [get_bd_pins axi_hwicap_0/icap_clk] [get_bd_pins axi_hwicap_0/s_axi_aclk] [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins axi_timebase_wdt_0/s_axi_aclk] [get_bd_pins axi_timer_0/s_axi_aclk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_intc/s_axi_aclk] [get_bd_pins microblaze_0_axi_intc/processor_clk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_periph/M02_ACLK] [get_bd_pins microblaze_0_axi_periph/M03_ACLK] [get_bd_pins microblaze_0_axi_periph/M04_ACLK] [get_bd_pins microblaze_0_axi_periph/M05_ACLK] [get_bd_pins microblaze_0_axi_periph/M06_ACLK] [get_bd_pins microblaze_0_axi_periph/M07_ACLK]
+  connect_bd_net -net rst_Clk_100M_bus_struct_reset [get_bd_pins rst_Clk_100M/bus_struct_reset] [get_bd_pins microblaze_0_local_memory/LMB_Rst]
+  connect_bd_net -net rst_Clk_100M_interconnect_aresetn [get_bd_pins rst_Clk_100M/interconnect_aresetn] [get_bd_pins microblaze_0_axi_periph/ARESETN]
+  connect_bd_net -net rst_Clk_100M_mb_reset [get_bd_pins rst_Clk_100M/mb_reset] [get_bd_pins microblaze_0/Reset] [get_bd_pins microblaze_0_axi_intc/processor_rst]
+  connect_bd_net -net rst_Clk_100M_peripheral_aresetn [get_bd_pins rst_Clk_100M/peripheral_aresetn] [get_bd_pins axi_slave_wishbone_classic_master_0/S_AXI_ARESETN] [get_bd_pins xadc_wiz_0/s_axi_aresetn] [get_bd_pins axi_hwicap_0/s_axi_aresetn] [get_bd_pins axi_quad_spi_0/s_axi_aresetn] [get_bd_pins axi_timebase_wdt_0/s_axi_aresetn] [get_bd_pins axi_timer_0/s_axi_aresetn] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins microblaze_0_axi_intc/s_axi_aresetn] [get_bd_pins microblaze_0_axi_periph/S00_ARESETN] [get_bd_pins microblaze_0_axi_periph/M00_ARESETN] [get_bd_pins microblaze_0_axi_periph/M01_ARESETN] [get_bd_pins microblaze_0_axi_periph/M02_ARESETN] [get_bd_pins microblaze_0_axi_periph/M03_ARESETN] [get_bd_pins microblaze_0_axi_periph/M04_ARESETN] [get_bd_pins microblaze_0_axi_periph/M05_ARESETN] [get_bd_pins microblaze_0_axi_periph/M06_ARESETN] [get_bd_pins microblaze_0_axi_periph/M07_ARESETN]
   connect_bd_net -net xadc_wiz_0_ip2intc_irpt [get_bd_pins xadc_wiz_0/ip2intc_irpt] [get_bd_pins xlconcat_0/In3]
-  connect_bd_net -net xlconcat_0_dout [get_bd_pins microblaze_0_axi_intc/intr] [get_bd_pins xlconcat_0/dout]
+  connect_bd_net -net xlconcat_0_dout [get_bd_pins xlconcat_0/dout] [get_bd_pins microblaze_0_axi_intc/intr]
 
   # Create address segments
   assign_bd_address -offset 0x40200000 -range 0x00010000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs axi_hwicap_0/S_AXI_LITE/Reg] -force
@@ -455,14 +455,15 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0x41C00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs axi_timer_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs axi_uartlite_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x00000000 -range 0x00020000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs microblaze_0_local_memory/dlmb_bram_if_cntlr/SLMB/Mem] -force
-  assign_bd_address -offset 0x00000000 -range 0x00020000 -target_address_space [get_bd_addr_spaces microblaze_0/Instruction] [get_bd_addr_segs microblaze_0_local_memory/ilmb_bram_if_cntlr/SLMB/Mem] -force
   assign_bd_address -offset 0x41200000 -range 0x00010000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs microblaze_0_axi_intc/S_AXI/Reg] -force
   assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces microblaze_0/Data] [get_bd_addr_segs xadc_wiz_0/s_axi_lite/Reg] -force
+  assign_bd_address -offset 0x00000000 -range 0x00020000 -target_address_space [get_bd_addr_spaces microblaze_0/Instruction] [get_bd_addr_segs microblaze_0_local_memory/ilmb_bram_if_cntlr/SLMB/Mem] -force
 
 
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -474,6 +475,4 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
-
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
