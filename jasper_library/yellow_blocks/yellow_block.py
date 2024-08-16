@@ -1,7 +1,7 @@
 import os
 import logging
 from glob import glob
-import collections
+import collections.abc
 
 class YellowBlock(object):
     """
