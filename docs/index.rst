@@ -125,13 +125,13 @@ Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matla
 - Make sure to install *Engineering Sample Devices* when you are installing Vivado
 - You may need *libncurses5* and *libtinfo5*, which are packages no longer included in 24.04. You can install them by typing the following in the Terminal. Please note that, in general, installing out-of-date packages is a security risk.
 
-  *. For *libtinfo5*: 
+  #. For *libtinfo5*: 
 
        .. code-block:: bash
 
             wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb && sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb
 
-  *. For *libncurses5*:
+  #. For *libncurses5*:
 
        .. code-block:: bash
 
