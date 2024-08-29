@@ -41,7 +41,7 @@ release = '0.1'
 
 # Adding bash code blocks into restructured text
 rst_prolog = """
-.. role::bash(code-block)
+.. role:: bash(code-block)
     :language: bash
 """
 
