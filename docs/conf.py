@@ -39,12 +39,6 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
-# Adding bash code blocks into restructured text
-rst_prolog = """
-.. role:: bash(code)
-    :language: bash
-"""
-
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.

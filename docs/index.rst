@@ -119,37 +119,58 @@ For Ubuntu 20.04, there are a few limitations:
 
 Ubuntu 24.04:
 
-Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matlab 2022a, Vivado 2023.1, nor Model Composer 2023.1. However, with a little tweaking, you can run the tools. Please note, that you do this at your own risk. This has not been thoroughly tested, is not the official toolflow, and also uses software not supported by the tools so getting support will be difficult. This is simply meant to offer some possible suggestions for those wishing to run on the newest long-term service release of Ubuntu.
+Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matlab 2022a, Vivado 2023.1, nor Model Composer 2023.1. However, with a little tweaking, you can run the tools. Please note, that you do this at your own risk. This has not been thoroughly tested, is not the official toolflow, and also uses software not supported by the tools so getting support will be difficult. This is simply meant to offer some possible suggestions for those wishing to run on the newest long-term support release of Ubuntu.
 
-- Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
+Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
 - Make sure to install *Engineering Sample Devices* when you are installing Vivado
 - You may need *libncurses5* and *libtinfo5*, which are packages no longer included in 24.04. You can install them by typing the following in the Terminal. Please note that, in general, installing out-of-date packages is a security risk.
 
-  - For *libtinfo5*:
-:bash:`wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb \
-&& sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb`
+  *. For *libtinfo5*: 
 
-  - For *libncurses5*: ::
-wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb \
-&& sudo dpkg -i libncurses5_6.3-2ubuntu0.1_amd64.deb && rm -f libncurses5_6.3-2ubuntu0.1_amd64.deb
+       .. code-block:: bash
 
-- Move *\$MATLAB_PATH/bin/glnx64a/libfreetype.so\** to an exclude directory. Assuming that you have defined *\$MATLAB_PATH* (given in *startsg.local*): ::
-mkdir $MATLAB_PATH/bin/glnx64a/exclude
-mv $MATLAB_PATH/bin/glnx64a/libfreetype.so* $MATLAB_PATH/bin/glnxa64a/exclude
+            wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb && sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb
+
+  *. For *libncurses5*:
+
+       .. code-block:: bash
+
+            wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb && sudo dpkg -i libncurses5_6.3-2ubuntu0.1_amd64.deb && rm -f libncurses5_6.3-2ubuntu0.1_amd64.deb
+
+- Move *\$MATLAB_PATH/bin/glnx64a/libfreetype.so\** to an exclude directory. Assuming that you have defined *\$MATLAB_PATH* (given in *startsg.local*):
+
+     .. code-block:: bash
+
+          mkdir $MATLAB_PATH/bin/glnx64a/exclude
+          mv $MATLAB_PATH/bin/glnx64a/libfreetype.so* $MATLAB_PATH/bin/glnxa64a/exclude
   
-- Upon start-up, you may get a *libcanberra* error. You can resolve this via the following: ::
-sudo apt install libcanberra-gtk-module
-sudo ln -s /usr/lib/x86_64-linux-gnu/gtk-2.0/modules/libcanberra-gtk-module.so \
-/usr/lib/libcanberra-gtk-module.so
+- Upon start-up, you may get a *libcanberra* error. You can resolve this via the following:
 
-Source: [Matlabcentral](https://www.mathworks.com/matlabcentral/answers/1985424-failed-to-load-module-canberra-gtk-module)
+     .. code-block:: bash
 
-- Dealing with the *hogweed* error requires installation of qt4. Note that this is no longer included in Ubuntu 24.04, which includes qt6. Installing qt4 requires installation from a PPA. Two that seem to work are [rock-core/qt4](https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/) and [ubuntuhandbook1](http://ppa.launchpadcontent.net/ubuntuhandbook1/ppa/ubuntu/). Add the ppa repository using Ubuntu's Software and Update Center (outlined at <https://help.ubuntu.com/stable/ubuntu-help/addremove-ppa.html.en>). An example of entering this at the Terminal is given as: :: 
-sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main`
-After this, you can then install *libqt4core4* via `sudo apt-get install libqtcore4 
+          sudo apt install libcanberra-gtk-module
+          sudo ln -s /usr/lib/x86_64-linux-gnu/gtk-2.0/modules/libcanberra-gtk-module.so /usr/lib/libcanberra-gtk-module.so
+
+     Source: `Matlabcentral <MatCent_>`_.
 
 
 
+
+
+- Dealing with the *hogweed* error requires installation of qt4. Note that this is no longer included in Ubuntu 24.04, which includes qt6. Installing qt4 requires installation from a PPA. Two that seem to work are `rock-core <RockCore_>`_ and `ubuntuhandbook1 <UbuntuHandbook_>`_. Add the ppa repository using Ubuntu's Software and Update Center (outlined `here <UbuntuInfo_>`_). An example of entering this in the Terminal is given as:
+
+     .. code-block:: bash
+
+          sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main`
+
+
+  After this, you can then install *libqt4core4* via :code:`sudo apt-get install libqtcore4`
+
+
+.. _MatCent: https://www.mathworks.com/matlabcentral/answers/1985424-failed-to-load-module-canberra-gtk-module
+.. _RockCore: https://ppa.launchpadcontent.net/rock-core/qt4/
+.. _UbuntuHandbook: http://ppa.launchpadcontent.net/ubuntuhandbook1/ppa/
+.. _UbuntuInfo: https://help.ubuntu.com/stable/ubuntu-help/addremove-ppa.html.en
 
 Please refer to the setup links below for more information on setting up the toolflow.
 
@@ -203,5 +224,3 @@ Get Involved
 If you are a CASPER collaborator, or you’re just interested in what we’re up to, feel free to join our mailing list by sending a blank email `here. <casper+subscribe@lists.berkeley.edu>`_
 
 If would like to get involved in the development of the tools, please join our dev mailing list by sending a blank email `here. <casper-dev+subscribe@lists.berkeley.edu>`_.
-
-
