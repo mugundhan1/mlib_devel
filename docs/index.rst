@@ -124,9 +124,10 @@ Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matla
 - Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
 - Make sure to install *Engineering Sample Devices* when you are installing Vivado
 - You may need *libncurses5* and *libtinfo5*, which are packages no longer included in 24.04. You can install them by typing the following in the Terminal. Please note that, in general, installing out-of-date packages is a security risk.
-  - For *libtinfo5*: ::
-wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb \
-&& sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb
+
+  - For *libtinfo5*:
+:bash:`wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb \
+&& sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb`
 
   - For *libncurses5*: ::
 wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb \
