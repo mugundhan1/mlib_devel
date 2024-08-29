@@ -124,34 +124,28 @@ Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matla
 - Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
 - Make sure to install *Engineering Sample Devices* when you are installing Vivado
 - You may need *libncurses5* and *libtinfo5*, which are packages no longer included in 24.04. You can install them by typing the following in the Terminal. Please note that, in general, installing out-of-date packages is a security risk.
-  - For *libtinfo5*:
-```bash
+  - For *libtinfo5*: ::
 wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb \
 && sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb && rm -f  libtinfo5_6.3-2ubuntu0.1_amd64.deb
-```
-  - For *libncurses5*:
-```bash
+
+  - For *libncurses5*: ::
 wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb \
 && sudo dpkg -i libncurses5_6.3-2ubuntu0.1_amd64.deb && rm -f libncurses5_6.3-2ubuntu0.1_amd64.deb
-```
-- Move *\$MATLAB_PATH/bin/glnx64a/libfreetype.so\** to an exclude directory. Assuming that you have defined *\$MATLAB_PATH* (given in *startsg.local*):
-```bash
+
+- Move *\$MATLAB_PATH/bin/glnx64a/libfreetype.so\** to an exclude directory. Assuming that you have defined *\$MATLAB_PATH* (given in *startsg.local*): ::
 mkdir $MATLAB_PATH/bin/glnx64a/exclude
 mv $MATLAB_PATH/bin/glnx64a/libfreetype.so* $MATLAB_PATH/bin/glnxa64a/exclude
-```  
-- Upon start-up, you may get a *libcanberra* error. You can resolve this via the following:
-```bash
+  
+- Upon start-up, you may get a *libcanberra* error. You can resolve this via the following: ::
 sudo apt install libcanberra-gtk-module
 sudo ln -s /usr/lib/x86_64-linux-gnu/gtk-2.0/modules/libcanberra-gtk-module.so \
 /usr/lib/libcanberra-gtk-module.so
-```
+
 Source: [Matlabcentral](https://www.mathworks.com/matlabcentral/answers/1985424-failed-to-load-module-canberra-gtk-module)
-- Dealing with the *hogweed* error requires installation of qt4. Note that this is no longer included in Ubuntu 24.04, which includes qt6. Installing qt4 requires installation from a PPA. Two that seem to work are [rock-core/qt4](https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/) and [ubuntuhandbook1](http://ppa.launchpadcontent.net/ubuntuhandbook1/ppa/ubuntu/). Add the ppa repository using Ubuntu's Software and Update Center (outlined at <https://help.ubuntu.com/stable/ubuntu-help/addremove-ppa.html.en>). An example of entering this at the Terminal is given as: 
-```bash
+
+- Dealing with the *hogweed* error requires installation of qt4. Note that this is no longer included in Ubuntu 24.04, which includes qt6. Installing qt4 requires installation from a PPA. Two that seem to work are [rock-core/qt4](https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/) and [ubuntuhandbook1](http://ppa.launchpadcontent.net/ubuntuhandbook1/ppa/ubuntu/). Add the ppa repository using Ubuntu's Software and Update Center (outlined at <https://help.ubuntu.com/stable/ubuntu-help/addremove-ppa.html.en>). An example of entering this at the Terminal is given as: :: 
 sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main`
 After this, you can then install *libqt4core4* via `sudo apt-get install libqtcore4 
-```
-
 
 
 
