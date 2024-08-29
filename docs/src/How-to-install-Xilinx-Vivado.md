@@ -4,7 +4,7 @@ This section explains how to install Xilinx Vivado and ISE (for the ISE legacy f
 
 ## [Current Vivado flow] How to install 2021.1
 
-1. Required OS: Ubuntu 2.04 LTS
+1. Required OS: Ubuntu 20.04 LTS
 2. Download the Xilinx Vivado installer [here](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/2021-1.html), signing in as prompted and selecting the 2021.1 Linux Self Extracting Web Installer option.
 3. Run the following to make the newly downloaded file executable:
 ```bash
@@ -26,6 +26,19 @@ chmod +x Xilinx_Unified_2021.1_0610_2318_Lin64.bin
 
 *[Note: this will only be used by toolflow/yellow block developers and is not required for standard use of the toolflow.]*
 1. Please see the Vivado 2021.1 installation guide [here](https://docs.xilinx.com/r/2021.1-English/ug973-vivado-release-notes-install-license/Installing-Cable-Drivers) on how to install cable drivers.
+
+## How to install 2023.1
+Currently, both RFSOC and Red Pitaya boards have been successfully configured to work with Vivado 2023.1 and Matlab 2022a (see [installing the toolflow](https://casper-toolflow.readthedocs.io/en/latest/src/Installing-the-Toolflow.html#getting-the-right-versions) for more information). Installation of Vivado 2023.1 follows the same steps as Vivado 2021.1 so refer to [the previous section](#\[Current-Vivado-flow\]-How-to-install-2021.1). Changes in steps are noted below:
+
+2. The Xilinx Vivado installer is [here](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/2023-1.html). The web installer has a habit of crashing, so you may want to use the Unified Installer even though the amount of space required is much greater.
+3. Assuming that you have downloaded the Unified Installer, then the commands change to:
+``` bash
+mkdir $UNZIP_LOC
+tar -xvzf $DOWNLOAD_LOC/Xilinx_Unified_2023.1_0507_1903.tar.gz -C $UNZIP_LOC
+sudo $UNZIP_LOC/Xilinx_Unified_2023.1_0507_1903/xsetup
+```
+where *\$UNZIP_LOC* is the path to where you want the install directory to be and *\$DOWNLOAD_LOC* is the location of your downloaded .zip file. Depending on where you install Vivado 2023.1, you may not need elevated permissions. Ignore any popups about installing the newest version of the Vivado design suite.
+
 
 ## [ISE legacy flow, ROACH2] How to install Xilinx ISE
 1. Required OS: Ubuntu 14.04 LTS. Xilinx now supports Ubuntu 14.04 LTS. Ubuntu 16.04 LTS can also be used (with tweaks)
@@ -131,4 +144,5 @@ The tweaks required to get 14.7 working with Ubuntu 16.04 can vary based on spec
       ```
 
       (Some alternative methods for dealing with this can be found on the CASPER mailing list archive)
+
 

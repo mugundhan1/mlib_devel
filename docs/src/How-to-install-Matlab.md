@@ -24,6 +24,19 @@ This section explains how to install MATLAB.
 6. Click through the rest of the installation, confirm your selections and begin the install.
 7. In order to run the Vivado flow of the CASPER tools, please see [here](https://casper-toolflow.readthedocs.io/en/latest/src/Configuring-the-Toolflow.html).
 
+## How to install R2022a
+Currently, both RFSOC and Red Pitaya boards have been successfully configured to work with Vivado 2023.1 and Matlab 2022a (see [installing the toolflow](https://casper-toolflow.readthedocs.io/en/latest/src/Installing-the-Toolflow.html#getting-the-right-versions) for more information). Installation of Matlab 2022a follows the same steps as R2021a so refer to [the previous section](#\[Current-Vivado-flow\]-How-to-install-R2021a). Changes in steps are noted below:
+
+2. Download the MATLAB installer [here](https://www.mathworks.com/downloads/). Select the `R2022a` install, and the `Download for Linux` option.
+3. Run the following in the terminal:
+    ```bash
+    cd /path/to/matlab/download/matlab_R2022a_glnxa64.zip
+    mkdir matlab_R2022a
+    unzip matlab_R2022a_glnxa64.zip -d matlab_R2022a
+    cd matlab_R2022a
+    sudo ./install
+    ```
+    
 ## [ISE legacy flow, ROACH2] How to install R2013b
 
 1. Required OS: Ubuntu 14.04 LTS
