@@ -121,7 +121,7 @@ Ubuntu 24.04:
 
 Ubuntu 24.04 was released on April 25, 2024. It is not supported by either Matlab 2022a, Vivado 2023.1, nor Model Composer 2023.1. However, with a little tweaking, you can run the tools. Please note, that you do this at your own risk. This has not been thoroughly tested, is not the official toolflow, and also uses software not supported by the tools so getting support will be difficult. This is simply meant to offer some possible suggestions for those wishing to run on the newest long-term support release of Ubuntu.
 
-Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
+- Use the AMD Unified Installer instead of the Self Extracting Web Installer since the latter has a habit of hanging. By doing this, it greatly increases the amount of on-disk space required to ~300 GB (although a lot of it gets cleaned up). 
 - Make sure to install *Engineering Sample Devices* when you are installing Vivado
 - You may need *libncurses5* and *libtinfo5*, which are packages no longer included in 24.04. You can install them by typing the following in the Terminal. Please note that, in general, installing out-of-date packages is a security risk.
 
