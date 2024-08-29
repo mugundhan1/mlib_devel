@@ -5,7 +5,7 @@ There are a few ways of working with the Vivado-based CASPER toolflow. You can d
 ## MATLAB/Python method 
 There are two ways to use this method. The first is to run the command `jasper_frontend` within MATLAB and run the rest of the flow in a terminal separately. The second is to run the command `jasper` within MATLAB and have everything be done automatically in the MATLAB terminal.
 
-### jasper_frontend:
+### jasper_frontend
 
 1. In the terminal, run the following:
     ```bash
@@ -16,11 +16,11 @@ There are two ways to use this method. The first is to run the command `jasper_f
     This script will source all the relevant MATLAB and Xilinx paths (as specified in your `startsg.local.xxxx` file), run matlab and start Xilinx system generator. Wait until the MATLAB GUI has opened and MATLAB is ready.
 
 
-2. In the MATLAB command window, type `simulink`. This will start simulink. Wait until the Simulink window has opened. 
+2. In the MATLAB command window, type `simulink`. This will start Simulink. Wait until the Simulink window has opened. 
 
-3. In the Simulink Library Browser, click on the “open model or library” icon in the tab and select where your desired simulink file is (*.slx). There are some test files under “jasper_library/test_models”. The test model “test_snap.slx” is used for this how-to. Once the file has been selected, click “Open”. The “test_snap” design should open in the Simulink window.
+3. In the Simulink Library Browser, click on the “open model or library” icon in the tab and select where your desired simulink file is (\*.slx). There are some test files under *jasper_library/test_models*. The test model *test_snap.slx* is used for this how-to. Once the file has been selected, click *Open*. The *test_snap* design should open in the Simulink window.
 
-4. Click the simulink design window (“test_snap”) and press `ctrl + D`. 
+4. Click the Simulink design window (“test_snap”) and press `ctrl + D`. 
 This will update the simulink model and check for warnings or errors. Make sure there are no errors or warnings. A window should pop up if this is the case.
 
 5. Save the design, and then in the MATLAB command window terminal type `jasper_frontend`.
@@ -54,7 +54,7 @@ This will generate the yellow block peripheral file and run the system generator
     * `outputs/`: contains the bof and fpg files, and
     * `myproj/`: contains the Vivado projects files, source files, synth results and implementation results. The bin and bit files are also stored here. 
 
-### jasper:
+### jasper
 
 1. In the terminal, run the following:
     ```bash
