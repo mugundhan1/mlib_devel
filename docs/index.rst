@@ -154,9 +154,6 @@ Use the AMD Unified Installer instead of the Self Extracting Web Installer since
      Source: `Matlabcentral <MatCent_>`_.
 
 
-
-
-
 - Dealing with the *hogweed* error requires installation of qt4. Note that this is no longer included in Ubuntu 24.04, which includes qt6. Installing qt4 requires installation from a PPA. Two that seem to work are `rock-core <RockCore_>`_ and `ubuntuhandbook1 <UbuntuHandbook_>`_. Add the ppa repository using Ubuntu's Software and Update Center (outlined `here <UbuntuInfo_>`_). An example of entering this in the Terminal is given as:
 
      .. code-block:: bash
@@ -167,7 +164,7 @@ Use the AMD Unified Installer instead of the Self Extracting Web Installer since
   After this, you can then install *libqt4core4* via :code:`sudo apt-get install libqtcore4`
 
 
-- As noted in the instructions for 20.04, Xilinx install its own version of *binutils*, which is old than the one provided by Ubuntu. To fix this, you can symlink
+- As noted in the instructions for 20.04, Xilinx installs its own version of *binutils*, which is old than the one provided by Ubuntu. To fix this, you can symlink
 
      .. code-block:: bash
 
