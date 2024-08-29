@@ -167,6 +167,15 @@ Use the AMD Unified Installer instead of the Self Extracting Web Installer since
   After this, you can then install *libqt4core4* via :code:`sudo apt-get install libqtcore4`
 
 
+- As noted in the instructions for 20.04, Xilinx install its own version of *binutils*, which is old than the one provided by Ubuntu. To fix this, you can symlink
+
+     .. code-block:: bash
+
+          mv $XILINX_PATH/tps/lnx64/binutils-2.37/bin/ld $XILINX_PATH/tps/lnx64/binutils-2.37/bin/ld.bak
+          ln -s /usr/bin/ld $XILINX_PATH/tps/lnx64/binutils-2.37/bin/ld 
+
+  Alternatively, you can perform only the first command and depend on */usr/bin/* being in your path.
+
 .. _MatCent: https://www.mathworks.com/matlabcentral/answers/1985424-failed-to-load-module-canberra-gtk-module
 .. _RockCore: https://ppa.launchpadcontent.net/rock-core/qt4/
 .. _UbuntuHandbook: http://ppa.launchpadcontent.net/ubuntuhandbook1/ppa/
