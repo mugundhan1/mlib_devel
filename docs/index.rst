@@ -53,7 +53,7 @@ This script will resynchronize every CASPER block in your design with its latest
   `sw`
     Codebase for embedded software processors used by the toolflow
   `yellow_blocks`
-    Python classes for each yellow block in the simulink `xps_library`.
+    Python classes for each yellow block in the Simulink `xps_library`.
 
 Setup
 ------
@@ -62,8 +62,9 @@ The software stack you will require to use the toolflow will depend what hardwar
 
 The current compatibility matrix is below:
 
-(Note that official support for ROACH plaforms is no longer provided, however `this version <https://github.com/casper-astro/mlib_devel/tree/d77999047d2f0dc53e1c1e6e516e6ef3cdd45632/docs>`__ of `mlib_devel` contains all ROACH related documentation and ROACH tutorials can be found `here <https://casper-tutorials.readthedocs.io/en/latest/tutorials/roach/tut_intro.html>`__)
+(Note that official support for ROACH plaforms is no longer provided, however `this version <https://github.com/casper-astro/mlib_devel/tree/d77999047d2f0dc53e1c1e6e516e6ef3cdd45632/docs>`_ of `mlib_devel` contains all ROACH related documentation and ROACH tutorials can be found `here <https://casper-tutorials.readthedocs.io/en/latest/tutorials/roach/tut_intro.html>`_).
 
+<<<<<<< HEAD
 +----------------+---------------------+--------------------+--------------------+---------------------------------+-------------------+
 |  Hardware      |   Operating System  |    MATLAB Version  |    Xilinx Version  |    mlib_devel branch / commit   |   Python Version  |
 +================+=====================+====================+====================+=================================+===================+
@@ -93,6 +94,14 @@ The current compatibility matrix is below:
 +----------------+---------------------+--------------------+--------------------+---------------------------------+-------------------+
 |SNAP2           | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |   Python 3.8      |
 +----------------+---------------------+--------------------+--------------------+---------------------------------+-------------------+
+=======
+
+
+.. csv-table:: 
+   :file: _static/files/hardware-compatibility-matrix.csv
+   :widths: 16, 17, 16, 17, 17, 17
+   :header-rows: 1
+>>>>>>> m2021a_old-docs
 
 A Note on Operating Systems
 """""""""""""""""""""""""""
@@ -161,7 +170,11 @@ Ubuntu 24.04 was released on April 25, 2024. It is not supported by Matlab R2022
           sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main`
 
 
+<<<<<<< HEAD
   After this, you can then install *libqt4core4* via :code:`sudo apt-get install libqtcore4`.
+=======
+  After this, you can then install *libqt4core4* via :code:`sudo apt install libqtcore4`.
+>>>>>>> m2021a_old-docs
 
 
 - As noted in the instructions for Ubuntu 20.04, Xilinx installs its own version of *binutils*, which is older than the one provided by Ubuntu. To fix this, you can symlink
