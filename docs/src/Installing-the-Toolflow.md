@@ -1,3 +1,4 @@
+
 # Installing the Toolflow
 
 This page explains how to install the CASPER tools and what supporting software is required to run them.
@@ -6,20 +7,21 @@ This page explains how to install the CASPER tools and what supporting software 
 
 The toolflow is very sensitive to mis-matching software versions. The current compatibility matrix of software versions is below:
 
-_(Note that official support for ROACH plaforms is no longer provided, however [this version](https://github.com/casper-astro/mlib_devel/tree/d77999047d2f0dc53e1c1e6e516e6ef3cdd45632/docs) of `mlib_devel` contains all ROACH related documentation and ROACH tutorials can be found [here](https://casper-tutorials.readthedocs.io/en/latest/tutorials/roach/tut_intro.html))_
+*(Note that official support for ROACH plaforms is no longer provided, however [this version](https://github.com/casper-astro/mlib_devel/tree/d77999047d2f0dc53e1c1e6e516e6ef3cdd45632/docs) of `mlib_devel` contains all ROACH related documentation and ROACH tutorials can be found [here](https://casper-tutorials.readthedocs.io/en/latest/tutorials/roach/tut_intro.html))*
 
 |  Hardware      |   Operating System  |    MATLAB Version  |    Xilinx Version  |    mlib_devel branch / commit   |  Python Version  |
 |----------------|---------------------|--------------------|--------------------|---------------------------------|------------------|
 |ROACH1/2        | Ubuntu 14.04        |  2013b             |  ISE 14.7          |  branch: `roach2`               |  Python 2.7      |
 |SKARAB          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
 |SNAP            | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
-|Red Pitaya      | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
+|Red Pitaya      | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
 |VCU118          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
 |VCU128          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
-|ZCU216          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
-|ZCU208          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
-|ZCU111          | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
-|PYNQ RFSoC 2x2  | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
+|ZCU216          | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
+|ZCU208          | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
+|ZCU111          | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
+|PYNQ RFSoC 4x2  | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
+|PYNQ RFSoC 2x2  | Ubuntu 20.04        |  2021a/2022a       |Vivado 2021.1/2023.1|  branch: `m2021a`/`m2022a`      |  Python 3        |
 |HTG ZRF16-29DR  | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
 |HTG ZRF16-49DR  | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
 |SNAP2           | Ubuntu 20.04        |  2021a             |  Vivado 2021.1     |  branch: `m2021a`               |  Python 3        |
@@ -92,10 +94,8 @@ pip3 install -r requirements.txt
 
 You may need to run the `pip3 install` command as an administrator if you are using the system-maintained python installation instead of a virtual environment (a virtual environemnt is _highly_ recommended).
 
-**Note: there appears to be an incompability between pip3 v21.3.1 and xml2vhdl (one of the dependencies listing in the requirements file) that results in errors when installing requirements.txt. If you encounter an issue in fetching xml2vhdl when running `pip3 install -r requirements.txt`, try install pip3 v18.1 or earlier and use that instead (this is one of those things best done in a virtual environment, so as to not mess around with the system verson of python)**  
+**Note: there appears to be an incompability between pip3 v21.3.1 and xml2vhdl (one of the dependencies listing in the requirements file) that results in errors when installing requirements.txt. If you encounter an issue in fetching xml2vhdl when running `pip3 install -r requirements.txt`, try install pip3 v18.1 or earlier and use that instead (this is one of those things best done in a virtual environment, so as to not mess around with the system version of python)**  
 
 ## Configuring the toolflow
 
 You now have all the software you need to start building your designs. However, you'll still need to specify some local configuration details which will depend on how you carried out your installation. See [Configuring the Toolflow](https://casper-toolflow.readthedocs.io/en/latest/src/Configuring-the-Toolflow.html) for more details.
-
-
