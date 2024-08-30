@@ -25,7 +25,7 @@ This section explains how to install MATLAB.
 7. In order to run the Vivado flow of the CASPER tools, please see [here](https://casper-toolflow.readthedocs.io/en/latest/src/Configuring-the-Toolflow.html).
 
 ## How to install R2022a
-Currently, both RFSOC and Red Pitaya boards have been successfully configured to work with Vivado 2023.1 and Matlab 2022a (see [installing the toolflow](https://casper-toolflow.readthedocs.io/en/latest/src/Installing-the-Toolflow.html#getting-the-right-versions) for more information). Installation of Matlab 2022a follows the same steps as R2021a so refer to [the previous section](https://github.com/bgodfrey/mlib_devel/blob/m2022a/docs/src/How-to-install-Matlab.md#current-vivado-flow-how-to-install-r2021a). Changes in steps are noted below:
+Currently, both RFSOC and Red Pitaya boards have been successfully configured to work with Vivado 2023.1 and Matlab 2022a (see [installing the toolflow](https://casper-toolflow.readthedocs.io/en/latest/src/Installing-the-Toolflow.html#getting-the-right-versions) for more information). Installation of Matlab R2022a follows the same steps as R2021a so refer to [the previous section](https://github.com/bgodfrey/mlib_devel/blob/m2022a/docs/src/How-to-install-Matlab.md#current-vivado-flow-how-to-install-r2021a). Changes in steps are noted below:
 
 2. Download the MATLAB installer [here](https://www.mathworks.com/downloads/). Select the `R2022a` install, and the `Download for Linux` option.
 3. Run the following in the Terminal:
