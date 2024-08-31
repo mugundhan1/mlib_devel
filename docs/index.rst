@@ -166,7 +166,7 @@ Ubuntu 24.04 was released on April 25, 2024. It is not supported by Matlab R2022
 
      .. code-block:: bash
 
-          sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main`
+          sudo add-apt-repository -S 'deb https://ppa.launchpadcontent.net/rock-core/qt4/ubuntu/ focal main'
 
 
   After this, you can then install *libqt4core4* via :code:`sudo apt-get install libqtcore4`.

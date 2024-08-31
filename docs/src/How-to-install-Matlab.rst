@@ -11,6 +11,7 @@ This section explains how to install MATLAB.
 #. Required OS: Ubuntu 20.04 LTS.
 #. Download the MATLAB installer `here <https://www.mathworks.com/downloads/>`_. Select the ``2021a`` install, and the ``Download for Linux`` option.
 #. Run the following in the terminal:
+
    .. code-block:: bash
 
        cd /path/to/matlab/download/matlab_R2021a_glnxa64.zip
